@@ -1,36 +1,34 @@
-ARG NODE_IMAGE=node:16.13.1
+FROM node:lts AS builder
 
-FROM $NODE_IMAGE AS base
-RUN apt-get update && apt-get install -y dumb-init
-RUN mkdir -p /home/node/app && chown node:node /home/node/app
-WORKDIR /home/node/app
-USER node
-RUN mkdir tmp
+# Set working directory
+WORKDIR /app
 
-FROM base AS dependencies
-COPY --chown=node:node ./package*.json ./
+# Copy package.json and package-lock.json
+COPY package*.json ./
+RUN npm install
+
+# Install dependencies
 RUN npm install
 RUN npm ci
-COPY --chown=node:node . .
 
-FROM dependencies AS build
+# Copy the rest of the application
+COPY . .
+
+# Build the AdonisJS application
 RUN node ace build --production --ignore-ts-errors
 
-FROM base AS production
+FROM node:lts AS production
+# Set working directory
+WORKDIR /app
 
-USER root
+# Copy built files from the builder stage
+COPY --from=builder /app/build ./
 
-ENV NODE_ENV=production
-ENV HOST=api.infocat.info
-COPY --chown=node:node ./package*.json ./
 RUN npm install
 RUN npm ci --production
-COPY --chown=node:node --from=build /home/node/app/build .
 
-# Install graphics magick
-RUN apt-get update && apt-get install -y graphicsmagick
+# Expose port 3333 (default AdonisJS port)
+EXPOSE 3333
 
-RUN rm -rf /var/cache/apk/*
-
-CMD [ "dumb-init", "npm", "start" ]
-
+# Start the AdonisJS application
+CMD [ "npm", "start" ]
