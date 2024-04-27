@@ -421,7 +421,7 @@ export default defineComponent({
   }
   .tree-item {
     height: 100%;
-    #display: flex;
+    display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;

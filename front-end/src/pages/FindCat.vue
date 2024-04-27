@@ -374,7 +374,6 @@ export default defineComponent({
 <style scoped lang="scss">
 .content {
   padding: 24px 24px 24px 0px;
-  overflow-x: auto;
 }
 .outlined {
   margin: 8px 8px 8px 0px;

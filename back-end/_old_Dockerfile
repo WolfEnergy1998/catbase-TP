@@ -36,3 +36,4 @@ RUN apt-get update && apt-get install -y graphicsmagick
 RUN rm -rf /var/cache/apk/*
 
 CMD [ "dumb-init", "npm", "start" ]
+

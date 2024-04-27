@@ -68,6 +68,8 @@ export default defineComponent({
 
     await this.fetchLogs()
   },
+
+
   methods: {
     async countMethod() {
       const countCats = await CatService.countCats()

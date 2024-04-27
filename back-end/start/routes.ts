@@ -74,3 +74,10 @@ Route.group(() => {
   Route.post('/getBreedCount', 'StatsController.getBreedCount')
   Route.post('/getBreedYearCount', 'StatsController.getBreedYearCount')
 }).prefix('stats')
+
+Route.group(() => {
+  Route.get('/get/cron/:cron', 'LogsController.getLogsByCron')
+  Route.get('/get/event/:event', 'LogsController.getLogsByEvent')
+  // Route.post('/create', 'LogsController.createLog')
+}).prefix('logs')
+
