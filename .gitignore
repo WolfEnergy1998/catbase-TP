@@ -1,0 +1,8 @@
+package-lock.json
+back-end/package-lock.json
+front-end/package-lock.json
+front-end/public
+front-end/src-pwa
+sverak_scraper/
+trigger-pipeline/*.mod
+.vscode

@@ -1,0 +1,9 @@
+[{event: EVENT, value: VALUE, timestamp: TIMESTAMP, cron: CRON}, ...]
+
+@enum
+EVENT = {
+    STARTED,
+    STOPPED,
+    ERROR,
+    DOWNLOADED
+}
